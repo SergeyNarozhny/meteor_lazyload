@@ -1,0 +1,40 @@
+<head>
+	<title>logs-app</title>
+</head>
+
+<body>
+	{{> lazyExample}}
+	{{> sidebar}}
+</body>
+
+<template name="lazyExample">
+	<ul>
+		{{#each logs}}
+			<li>
+			<div>type: {{type}}</div>
+			<div>message: {{message}}</div>
+			<div>date: {{date}}</div>
+			<div>source: {{source}}</div>
+			</li>
+		{{/each}}
+	</ul>
+	{{#if needMore}}
+		<div id="needMoreLogs">Loading...</div>
+	{{/if}}
+</template>
+
+<template name="sidebar">
+	<div id="filterSidebar">
+		<label>type:&nbsp;
+			<select id="typeSelect">
+				<option value=""></option>
+				{{#each typesFilter}}
+					<option value="{{value}}">{{name}}</option>
+				{{/each}}
+			</select>
+		</label>
+		<label>stop sync:&nbsp;
+			<input type="checkbox" id="serviceSwitcher" />
+		</label>
+	</div>
+</template>

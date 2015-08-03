@@ -1,0 +1,15 @@
+#needMoreLogs {
+	text-align: center;
+	width:100%;
+}
+#filterSidebar {
+	position:fixed;
+	width:20%;
+	height:100%;
+	right:0;
+	top:0;
+	padding: 2em 1em;
+}
+#filterSidebar label {
+	display:block;
+}
