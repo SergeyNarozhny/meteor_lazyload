@@ -22,6 +22,12 @@ if (Meteor.isServer) {
 		}
 	}
 	
+	/*Meteor.startup(function () {
+		Meteor.setInterval(function() {
+		  TestData.insert({number: Math.floor(Math.random() * 1000)});
+		}, 10000);
+	});*/
+	
 	Meteor.publish('logs', function(limit, filter, switcher) {
 		if (!switcher)
 			return Logs.find(filter, { limit: limit });
@@ -39,8 +45,10 @@ if (Meteor.isClient) {
 	
 	// some kind of observer 
 	Deps.autorun(function() {
-		Meteor.subscribe('logs', Session.get('logsLimit'), returnFilters(), Session.get('switcher'));
+		mySub = Meteor.subscribe('logs', Session.get('logsLimit'), returnFilters(), Session.get('switcher'));
 	});
+	
+	console.log(mySub);
 	
 	function returnFilters() {
 		var obj = {};
@@ -74,7 +82,7 @@ if (Meteor.isClient) {
 
 	Template.lazyExample.helpers({
 		logs : function() {
-			return Logs.find(returnFilters());
+			return Logs.find(returnFilters(), { reactive: !Session.get('switcher') });
 		},
 		needMore : function() {
 			// returns true till that time
